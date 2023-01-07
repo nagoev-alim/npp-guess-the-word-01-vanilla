@@ -1,0 +1,72 @@
+@import "assets/scss/config/fonts";
+@import "assets/scss/config/reset";
+@import "assets/scss/config/vars";
+@import "assets/scss/config/utility";
+@import "assets/scss/modules/typography";
+@import "assets/scss/modules/fields";
+@import "assets/scss/modules/buttons";
+@import "assets/scss/modules/toast";
+@import "assets/scss/config/global";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.app-author {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.app-container {
+  --gap: 15px;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.game {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05), 0 25px 35px rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  max-width: 500px;
+  width: 100%;
+  display: grid;
+  gap: var(--gap);
+
+  .title {
+    text-align: center;
+  }
+
+  .details, .content {
+    display: grid;
+    gap: var(--gap);
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .inputs {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, 55px);
+    justify-content: center;
+
+    input {
+      height: 55px;
+      font-size: 30px;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--fld-c-primary);;
+    }
+  }
+}
+
+
+
+
