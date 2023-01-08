@@ -6,7 +6,8 @@ In this game, users have to find all letters of a random word in the given guess
 
 #### 🌄 Screenshots:
 
-![App Screenshot](assets/images/preview.jpg)
+![App Screenshot](assets/images/preview01.jpg)
+![App Screenshot](assets/images/preview02.jpg)
 
 -----
 

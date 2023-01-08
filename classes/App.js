@@ -1,4 +1,5 @@
 import words from '../data/mock.js';
+import { showNotification } from '../modules/showNotification.js';
 
 /**
  * @class App
@@ -18,9 +19,9 @@ export default class App {
         <input type='text' maxlength='1' class='visually-hidden' data-input=''>
         <div class='inputs' data-inputs=''></div>
         <div class='details'>
-          <p class='hint'>Hint: <span data-hint=''></span></p>
-          <p class='guess-left'>Remaining guesses: <span data-left=''></span></p>
-          <p class='wrong-letter'>Wrong letters: <span data-wrong=''></span></p>
+          <p class='h5'>Hint: <span data-hint=''></span></p>
+          <p class='h5'>Remaining guesses: <span data-left=''></span></p>
+          <div class='h5'>Wrong letters: <p class='hide' data-wrong=''></p></div>
         </div>
         <button data-reset=''>Reset Game</button>
       </div>
@@ -44,12 +45,12 @@ export default class App {
   }
 
   /**
-   * @function
+   * @function randomWord - Get word
    */
   randomWord = () => {
     const { word, hint } = this.words[Math.floor(Math.random() * this.words.length)];
-    console.log({ word, hint });
-    this.word = word
+    console.log({ word });
+    this.word = word;
     this.maxGuesses = this.word.length >= 5 ? 8 : 6;
     this.correctLetters = [];
     this.incorrectLetters = [];
@@ -64,8 +65,13 @@ export default class App {
     }
   };
 
+  /**
+   * @function initGame - Start Game
+   * @param value
+   */
   initGame = ({ target: { value } }) => {
     const key = value.toLowerCase();
+
     if (key.match(/^[A-Za-z]+$/) && !this.incorrectLetters.includes(` ${key}`) && !this.correctLetters.includes(key)) {
       if (this.word.includes(key)) {
         for (let i = 0; i < this.word.length; i++) {
@@ -76,19 +82,23 @@ export default class App {
         }
       } else {
         this.maxGuesses--;
-        this.incorrectLetters.push(` ${key}`);
+        this.incorrectLetters.push(`${key}`);
       }
+
       this.DOM.left.innerText = this.maxGuesses;
-      this.DOM.wrong.innerText = this.incorrectLetters;
+      this.DOM.wrong.innerHTML = this.incorrectLetters.map(i => `<span>${i}</span>`).join('');
+      this.DOM.wrong.classList.remove('hide');
     }
+
     this.DOM.input.value = '';
 
     setTimeout(() => {
       if (this.correctLetters.length === this.word.length) {
-        alert(`Congrats! You found the word ${this.word.toUpperCase()}`);
+        showNotification('success', `Congrats! You found the word <h3>${this.word.toUpperCase()}</h3>`);
         return this.randomWord();
       } else if (this.maxGuesses < 1) {
-        alert('Game over! You don\'t have remaining guesses');
+        showNotification('danger', 'Game over! You don\'t have remaining guesses');
+
         for (let i = 0; i < this.word.length; i++) {
           this.DOM.inputs.querySelectorAll('input')[i].value = this.word[i];
         }
